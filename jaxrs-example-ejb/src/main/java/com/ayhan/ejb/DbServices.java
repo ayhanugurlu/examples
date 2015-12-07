@@ -7,7 +7,7 @@ import com.ayhan.model.Location;
 @Local
 public interface DbServices {
 	
-	public void create(Location location);
+	public long create(Location location);
 	
-	public Location find(Location location) ;
+	public Location find(long locationId) ;
 }

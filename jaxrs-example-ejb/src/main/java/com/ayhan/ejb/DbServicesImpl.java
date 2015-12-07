@@ -12,12 +12,13 @@ public class DbServicesImpl implements DbServices{
 	@PersistenceContext(name="MyAppUnit")
 	private EntityManager em;
 
-	public void create(Location location) {
+	public long create(Location location) {
 		em.persist(location);
+		return location.getId();
 	}
 	
-	public Location find(Location location) {
-		return em.find(Location.class,1);
+	public Location find(long locationId) {
+		return em.find(Location.class,locationId);
 	}
 	
 

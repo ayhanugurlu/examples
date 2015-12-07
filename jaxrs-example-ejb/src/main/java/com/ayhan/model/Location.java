@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 
 @Entity
 @Table(name = "Location")
@@ -28,7 +28,7 @@ public class Location {
 
 	@Column(name = "LOCATION")
 	@Type(type = "org.hibernate.spatial.GeometryType")
-	private Geometry location;
+	private Point location;
 
 	public long getId() {
 		return id;
@@ -46,11 +46,11 @@ public class Location {
 		this.name = name;
 	}
 
-	public Geometry getLocation() {
+	public Point getLocation() {
 		return location;
 	}
 
-	public void setLocation(Geometry location) {
+	public void setLocation(Point location) {
 		this.location = location;
 	}
 
