@@ -3,7 +3,7 @@ package com.ayhan.services.dom;
 import com.ayhan.util.RestCustomMapper;
 
 
-@RestCustomMapper
+
 public class Bird extends Animal {
 
 	private Boolean flying;

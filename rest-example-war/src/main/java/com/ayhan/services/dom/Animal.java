@@ -1,5 +1,8 @@
 package com.ayhan.services.dom;
 
+import com.ayhan.util.RestCustomMapper;
+
+@RestCustomMapper
 public class Animal {
 
 	private String name;
