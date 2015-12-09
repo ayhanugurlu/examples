@@ -29,12 +29,25 @@
 			<version>4.3.5.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>4.3.5.Final</version>
+
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.5.Final</version>
+
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>4.3</version>
+			<version>4.3-AYESAS</version>			
 		</dependency>
+
 
 
 

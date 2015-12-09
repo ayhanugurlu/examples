@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.ayhan.model.Location;
+import com.ayhan.model.Person;
 
 @Stateless
 public class DbServicesImpl implements DbServices{
@@ -19,6 +20,31 @@ public class DbServicesImpl implements DbServices{
 	
 	public Location find(long locationId) {
 		return em.find(Location.class,locationId);
+	}
+
+	public long createPerson(String name, String surname) {
+		
+		Person p = new Person();
+		p.setName(name);
+		p.setSurname(surname);
+		em.persist(p);
+		return p.getId();
+	}
+
+	public Person getPerson(long id) {
+		return em.find(Person.class,id);		
+	}
+
+	public void updatePerson(long id, String name, String surname) {
+		Person p =  em.find(Person.class,id);
+		p.setName(name);
+		p.setSurname(surname);
+		
+	}
+
+	public void deletePerson(long id) {
+		Person p =  em.find(Person.class,id);
+		em.remove(p);		
 	}
 	
 

@@ -19,14 +19,13 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
-		
-	
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>4.3</version>
-			<type>jar</type>			
-		</dependency>	
+			<version>4.3-AYESAS</version>
+			<type>jar</type>
+		</dependency>
+
 		
 	</dependencies>
 
