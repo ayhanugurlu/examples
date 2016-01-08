@@ -1,4 +1,4 @@
-package com.ayhan.services;
+package com.ayhan.inheritance.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +9,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ayhan.services.dom.Animal;
-import com.ayhan.services.dom.Bird;
-import com.ayhan.services.dom.Dog;
-import com.ayhan.services.dom.DogHouse;
-import com.ayhan.services.dom.Mammal;
-import com.ayhan.services.dom.Parrot;
-import com.ayhan.services.dom.Penguin;
-import com.ayhan.services.dom.Whale;
-import com.ayhan.services.dom.Zoo;
+import com.ayhan.inheritance.model.Animal;
+import com.ayhan.inheritance.model.Bird;
+import com.ayhan.inheritance.model.Dog;
+import com.ayhan.inheritance.model.DogHouse;
+import com.ayhan.inheritance.model.Mammal;
+import com.ayhan.inheritance.model.Parrot;
+import com.ayhan.inheritance.model.Penguin;
+import com.ayhan.inheritance.model.Whale;
+import com.ayhan.inheritance.model.Zoo;
 
 
 /**
@@ -27,10 +27,10 @@ import com.ayhan.services.dom.Zoo;
  * @author ayhanu
  *
  */
-@Path("/restexample")
+@Path("/restInheritance")
 @Produces({ MediaType.APPLICATION_JSON })
 @Consumes({ MediaType.APPLICATION_JSON })
-public class RestExample {
+public class RestInheritance {
 
 
 	/**

@@ -1,4 +1,4 @@
-package com.ayhan.services.dom;
+package com.ayhan.inheritance.model;
 
 public class Dog extends Mammal {
 	private String barksAlot;

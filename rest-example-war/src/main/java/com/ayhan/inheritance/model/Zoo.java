@@ -1,8 +1,8 @@
-package com.ayhan.services.dom;
+package com.ayhan.inheritance.model;
 
 import java.util.List;
 
-import com.ayhan.util.RestCustomMapper;
+import com.ayhan.inheritance.util.RestCustomMapper;
 
 @RestCustomMapper
 public class Zoo {

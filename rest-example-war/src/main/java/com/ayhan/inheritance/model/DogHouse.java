@@ -1,6 +1,6 @@
-package com.ayhan.services.dom;
+package com.ayhan.inheritance.model;
 
-import com.ayhan.util.RestCustomMapper;
+import com.ayhan.inheritance.util.RestCustomMapper;
 
 @RestCustomMapper
 public class DogHouse {
