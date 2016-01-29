@@ -1,4 +1,4 @@
-package com.ayhan.inheritance.model;
+package com.au.example.inheritance.model;
 
 public class Dog extends Mammal {
 	private String barksAlot;

@@ -1,4 +1,4 @@
-package com.ayhan.exception.util;
+package com.au.example.exception.util;
 
 public class ServerException extends Exception{
 

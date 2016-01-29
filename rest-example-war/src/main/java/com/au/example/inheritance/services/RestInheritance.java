@@ -1,4 +1,4 @@
-package com.ayhan.inheritance.services;
+package com.au.example.inheritance.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +9,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ayhan.inheritance.model.Animal;
-import com.ayhan.inheritance.model.Bird;
-import com.ayhan.inheritance.model.Dog;
-import com.ayhan.inheritance.model.DogHouse;
-import com.ayhan.inheritance.model.Mammal;
-import com.ayhan.inheritance.model.Parrot;
-import com.ayhan.inheritance.model.Penguin;
-import com.ayhan.inheritance.model.Whale;
-import com.ayhan.inheritance.model.Zoo;
+import com.au.example.inheritance.model.Animal;
+import com.au.example.inheritance.model.Bird;
+import com.au.example.inheritance.model.Dog;
+import com.au.example.inheritance.model.DogHouse;
+import com.au.example.inheritance.model.Mammal;
+import com.au.example.inheritance.model.Parrot;
+import com.au.example.inheritance.model.Penguin;
+import com.au.example.inheritance.model.Whale;
+import com.au.example.inheritance.model.Zoo;
 
 
 /**

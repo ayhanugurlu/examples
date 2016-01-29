@@ -1,4 +1,4 @@
-package com.ayhan.inheritance.util;
+package com.au.example.inheritance.util;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;

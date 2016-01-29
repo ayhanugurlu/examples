@@ -1,6 +1,6 @@
-package com.ayhan.inheritance.model;
+package com.au.example.inheritance.model;
 
-import com.ayhan.inheritance.util.RestCustomMapper;
+import com.au.example.inheritance.util.RestCustomMapper;
 
 @RestCustomMapper
 public class Animal {

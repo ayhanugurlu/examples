@@ -1,4 +1,4 @@
-package com.ayhan.exception;
+package com.au.example.exception;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ayhan.exception.util.ServerException;
+import com.au.example.exception.util.ServerException;
 
 /**
  * Restfull servis inheritance example

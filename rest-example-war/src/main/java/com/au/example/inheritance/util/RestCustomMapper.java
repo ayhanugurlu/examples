@@ -1,4 +1,4 @@
-package com.ayhan.inheritance.util;
+package com.au.example.inheritance.util;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
