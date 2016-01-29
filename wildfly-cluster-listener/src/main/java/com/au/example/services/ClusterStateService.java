@@ -1,4 +1,4 @@
-package com.ayhan.services;
+package com.au.example.services;
 
 import java.util.List;
 
@@ -9,9 +9,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ayhan.data.NodeDTO;
-import com.ayhan.ejb.SingletonEJB;
+import com.au.example.data.NodeDTO;
+import com.au.example.ejb.SingletonEJB;
 
+
+/**
+ * Restfull servis
+ * 
+ * 
+ * 
+ * @author ayhanu
+ *
+ */
 @Path("/clusterStateService")
 @Produces({ MediaType.APPLICATION_JSON })
 @Consumes({ MediaType.APPLICATION_JSON })
@@ -44,6 +53,35 @@ public class ClusterStateService {
 		return buff.toString();
 
 	}
+	
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	@GET
+	@Path("getStateLookup")
+	public String getStateLookup() {
+		StringBuffer buff = new StringBuffer();
+		
+		List<NodeDTO> dtos = singletonEJB.getAllNodeLookup();
+		for (NodeDTO dto : dtos) {
+			buff.append(dto.getName());
+			buff.append(" ");
+			buff.append(dto.getHostname());
+			buff.append(":");
+			buff.append(dto.getPort());
+			buff.append('\n');
+		
+		}
+		
+		return buff.toString();
+
+	}
+	
+	
+	
 	
 	
 	@GET

@@ -1,9 +1,8 @@
-package com.ayhan.data;
+package com.au.example.data;
 
 import java.net.InetAddress;
 
 /**
- * 
  * 
  * @author ayhanu
  *

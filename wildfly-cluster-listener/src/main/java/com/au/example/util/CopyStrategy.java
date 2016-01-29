@@ -1,9 +1,16 @@
-package com.ayhan.util;
+package com.au.example.util;
 
 import org.wildfly.clustering.group.Node;
 
-import com.ayhan.data.NodeDTO;
+import com.au.example.data.NodeDTO;
 
+
+/**
+ * Dto kopyalama işleri..
+ * 
+ * @author ayhanu
+ *
+ */
 public class CopyStrategy {
 	
 	
