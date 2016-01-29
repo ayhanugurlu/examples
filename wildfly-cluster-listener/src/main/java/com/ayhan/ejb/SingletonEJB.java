@@ -12,7 +12,7 @@ import org.wildfly.clustering.group.Group;
 import org.wildfly.clustering.group.Node;
 
 import com.ayhan.data.NodeDTO;
-import com.ayhan.listener.MyListener;
+import com.ayhan.listener.WildflyGroupListener;
 import com.ayhan.util.CopyStrategy;
 
 @Startup
@@ -23,15 +23,8 @@ public class SingletonEJB {
 	private Group channelGroup;
 
 	@PostConstruct
-	public void check() {
-		System.out.println("SingletonEJB load");
-		System.out.println("SingletonEJB load");
-		System.out.println("SingletonEJB load");
-		System.out.println("SingletonEJB load");
-		System.out.println("SingletonEJB load");
-		System.out.println("SingletonEJB load");
-		System.out.println("SingletonEJB load");
-		//channelGroup.addListener(new MyListener());
+	public void check() {		
+		channelGroup.addListener(new WildflyGroupListener());
 	}
 
 	public List<NodeDTO> getAllNode() {

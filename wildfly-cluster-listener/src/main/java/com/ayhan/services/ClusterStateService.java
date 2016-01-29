@@ -29,6 +29,7 @@ public class ClusterStateService {
 	@Path("getState")
 	public String getState() {
 		StringBuffer buff = new StringBuffer();
+		
 		List<NodeDTO> dtos = singletonEJB.getAllNode();
 		for (NodeDTO dto : dtos) {
 			buff.append(dto.getName());
@@ -36,8 +37,10 @@ public class ClusterStateService {
 			buff.append(dto.getHostname());
 			buff.append(":");
 			buff.append(dto.getPort());
-			buff.append("<br>");
+			buff.append('\n');
+		
 		}
+		
 		return buff.toString();
 
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import org.wildfly.clustering.group.Group.Listener;
 import org.wildfly.clustering.group.Node;
 
-public class MyListener implements Listener {
+public class WildflyGroupListener implements Listener {
 
 	public void membershipChanged(List<Node> prev, List<Node> curr,
 			boolean merge) {
