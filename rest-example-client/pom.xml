@@ -4,6 +4,60 @@
 	<groupId>com.au.example</groupId>
 	<artifactId>rest-example-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>rest-example-client</name>
 
-	
+	<properties>
+		<project.server>rest-example-server</project.server>
+	</properties>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-wadl2java-plugin</artifactId>
+				<version>3.1.1</version>
+				<dependencies>
+
+					<dependency>
+						<groupId>javax.ws.rs</groupId>
+						<artifactId>javax.ws.rs-api</artifactId>
+						<version>2.0-m12</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>${basedir}/src/main/generate-sources/</sourceRoot>
+							<wadlOptions>
+								<wadlOption>
+									<wadl>${basedir}/../${project.server}/target/${project.server}/restInheritance.wadl</wadl>
+									<interface>true</interface>
+								</wadlOption>
+							</wadlOptions>
+						</configuration>
+						<goals>
+							<goal>wadl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>3.0.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>2.3.4.Final</version>
+		</dependency>
+	</dependencies>
+
 </project>

@@ -39,11 +39,11 @@
 			<version>2.0.5</version>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0-m12</version>
-		</dependency>
+	<dependency>
+		<groupId>javax.ws.rs</groupId>
+		<artifactId>javax.ws.rs-api</artifactId>
+		<version>2.0-m12</version>
+	</dependency>
 
 
 	</dependencies>
@@ -92,10 +92,10 @@
 							<addResourceAndMethodIds>true</addResourceAndMethodIds>
 							<linkAnyMediaTypeToXmlSchema>true</linkAnyMediaTypeToXmlSchema>
 							<classResourceNames />
-							<basePackages>com.au.example.async</basePackages>
+							<basePackages>com.au.example.inheritance.services</basePackages>
 							<docProvider>org.apache.cxf.maven_plugin.javatowadl.ResourceMapJavaDocProvider</docProvider>
 							<attachWadl>true</attachWadl>
-							<outputFile>${project.build.directory}/${project.name}/application.wadl</outputFile>
+							<outputFile>${project.build.directory}/${project.name}/restInheritance.wadl</outputFile>
 							<stylesheetReference>application.xsl</stylesheetReference>
 						</configuration>
 					</execution>

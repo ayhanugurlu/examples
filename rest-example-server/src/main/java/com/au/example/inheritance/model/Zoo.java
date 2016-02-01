@@ -2,9 +2,12 @@ package com.au.example.inheritance.model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.au.example.inheritance.util.RestCustomMapper;
 
 @RestCustomMapper
+@XmlRootElement
 public class Zoo {
 	
 	private List<Animal> animals;

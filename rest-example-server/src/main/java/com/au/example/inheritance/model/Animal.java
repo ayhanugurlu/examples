@@ -1,8 +1,11 @@
 package com.au.example.inheritance.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.au.example.inheritance.util.RestCustomMapper;
 
 @RestCustomMapper
+@XmlRootElement
 public class Animal {
 
 	private String name;
