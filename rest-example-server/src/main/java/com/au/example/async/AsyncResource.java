@@ -1,10 +1,13 @@
 package com.au.example.async;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 
 @Path("/asyncResource")
@@ -12,22 +15,27 @@ import javax.ws.rs.core.MediaType;
 @Consumes({ MediaType.APPLICATION_JSON })
 public class AsyncResource {
 
-	
 	@GET
 	@Path("test")
 	public String test() {
 		return "test";
 	}
-	
+
 	@GET
 	@Path("asyncGet")
-	public void asyncGet(final AsyncResponse asyncResponse) {
+	public void asyncGet(@Suspended final AsyncResponse asyncResponse) {
 
+		asyncResponse.setTimeout(1000, TimeUnit.MILLISECONDS);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				
 				String result = veryExpensiveOperation();
+				System.out.println("devam ediyor");
+				asyncResponse.resume(result);
+
+			}
+
+			private String veryExpensiveOperation() {
 				try {
 					System.out.println("bekliyor");
 					Thread.sleep(200);
@@ -35,15 +43,10 @@ public class AsyncResource {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("devam ediyor");
-				asyncResponse.resume(result);
-
-			}
-
-			private String veryExpensiveOperation() {
 				return "test";
 			}
 		}).start();
+		System.out.println("denemememememememem");
 	}
 
 }

@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.au.example.inheritance.util.RestCustomMapper;
 
-@RestCustomMapper
 @XmlRootElement
 public class Zoo {
 	

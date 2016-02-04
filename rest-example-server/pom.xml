@@ -39,11 +39,15 @@
 			<version>2.0.5</version>
 		</dependency>
 
-	<dependency>
-		<groupId>javax.ws.rs</groupId>
-		<artifactId>javax.ws.rs-api</artifactId>
-		<version>2.0-m12</version>
-	</dependency>
+		<!-- <dependency> <groupId>javax.ws.rs</groupId> <artifactId>javax.ws.rs-api</artifactId> 
+			<version>2.0-m12</version> </dependency> -->
+
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<version>3.0.2.Final</version>
+		</dependency>
 
 
 	</dependencies>
@@ -78,7 +82,7 @@
 				<artifactId>cxf-java2wadl-plugin</artifactId>
 				<version>3.0.3</version>
 				<inherited>true</inherited>
-				
+
 				<executions>
 					<execution>
 						<id>process-classes</id>
@@ -99,14 +103,15 @@
 							<stylesheetReference>application.xsl</stylesheetReference>
 						</configuration>
 					</execution>
-	
+
 				</executions>
 			</plugin>
 
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

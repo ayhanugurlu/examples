@@ -3,6 +3,13 @@ package com.au.example.client.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.InvocationCallback;
+import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -21,6 +28,7 @@ public class MainClass {
 		restInheritanceClientWadlToJava();
 		restInheritanceClientTypedWadlToJava();
 		restInheritanceClientApache();
+		restAsyncClient();
 
 	}
 
@@ -31,6 +39,9 @@ public class MainClass {
 
 		RestInheritance restInheritance = Utility.createClient(RestInheritance.class, SERVER_URL);
 		restInheritance.getDog();
+
+		Zoo zoo = restInheritance.getZoo();
+		System.out.println(zoo);
 
 	}
 
@@ -43,8 +54,6 @@ public class MainClass {
 		Animal animal = restInheritance.getAnimal();
 		System.out.println(animal);
 
-		//Zoo zoo = restInheritance.getZoo();
-		//System.out.println(zoo);
 	}
 
 	public static void restInheritanceClientApache() {
@@ -76,6 +85,36 @@ public class MainClass {
 
 		} catch (IOException e) {
 
+			e.printStackTrace();
+		}
+	}
+
+	public static void restAsyncClient() {
+
+		Client client = ClientBuilder.newClient();
+
+		Future<String> futureResponse = client.target(SERVER_URL + "asyncResource").path("asyncGet").request().async()
+				.get(new InvocationCallback<String>() {
+					@Override
+					public void completed(String response) {
+						System.out.println("Response code " + response);
+
+					}
+
+					@Override
+					public void failed(Throwable throwable) {
+						System.out.println("Failed");
+						throwable.printStackTrace();
+					}
+				});
+
+		try {
+			System.out.println(futureResponse.get());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

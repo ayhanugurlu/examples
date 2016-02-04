@@ -16,7 +16,8 @@ import com.au.example.ejb.SingletonEJB;
 /**
  * Restfull servis
  * 
- * 
+ * ./standalone.sh   -c standalone-ha.xml -Djboss.node.name=srv1;
+ * ./standalone.sh   -c standalone-ha.xml -Djboss.node.name=srv2;
  * 
  * @author ayhanu
  *
