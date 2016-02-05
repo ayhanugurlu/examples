@@ -1,10 +1,11 @@
-package com.au.example.client.util;
+package com.au.example.client.rs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -16,11 +17,14 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.au.example.client.util.Utility;
 import com.au.example.inheritance.model.Animal;
 import com.au.example.inheritance.model.Zoo;
 import com.au.example.inheritance.services.RestInheritance;
 
-public class MainClass {
+public class RestClient {
+
+	private static Logger logger = Logger.getLogger(RestClient.class.getName());
 
 	private static final String SERVER_URL = "http://localhost:8080/rest-example-server/";
 
@@ -29,6 +33,7 @@ public class MainClass {
 		restInheritanceClientTypedWadlToJava();
 		restInheritanceClientApache();
 		restAsyncClient();
+		restAsyncClientInvocationCallback();
 
 	}
 
@@ -39,9 +44,8 @@ public class MainClass {
 
 		RestInheritance restInheritance = Utility.createClient(RestInheritance.class, SERVER_URL);
 		restInheritance.getDog();
-
 		Zoo zoo = restInheritance.getZoo();
-		System.out.println(zoo);
+		logger.info("Response code " + zoo.toString());
 
 	}
 
@@ -52,7 +56,7 @@ public class MainClass {
 
 		RestInheritance restInheritance = Utility.createClienteTyped(RestInheritance.class, SERVER_URL);
 		Animal animal = restInheritance.getAnimal();
-		System.out.println(animal);
+		logger.info("Response code " + animal.toString());
 
 	}
 
@@ -60,7 +64,7 @@ public class MainClass {
 		try {
 
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			HttpGet getRequest = new HttpGet("http://localhost:8080/rest-example-server/restInheritance/getAnimal");
+			HttpGet getRequest = new HttpGet(SERVER_URL + "restInheritance/getAnimal");
 			getRequest.addHeader("accept", "application/json");
 
 			HttpResponse response = httpClient.execute(getRequest);
@@ -72,9 +76,9 @@ public class MainClass {
 			BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 
 			String output;
-			System.out.println("Output from Server .... \n");
+			logger.info("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
+				logger.info(output);
 			}
 
 			httpClient.getConnectionManager().shutdown();
@@ -92,24 +96,38 @@ public class MainClass {
 	public static void restAsyncClient() {
 
 		Client client = ClientBuilder.newClient();
+		Future<Response> futureResponse = client.target(SERVER_URL + "asyncResource").path("asyncGet").request().async().get();
+		try {
+			String resp = futureResponse.get().readEntity(String.class);
+			logger.info("Response code " + resp);
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void restAsyncClientInvocationCallback() {
+
+		Client client = ClientBuilder.newClient();
 
 		Future<String> futureResponse = client.target(SERVER_URL + "asyncResource").path("asyncGet").request().async()
 				.get(new InvocationCallback<String>() {
 					@Override
 					public void completed(String response) {
-						System.out.println("Response code " + response);
+						logger.info("Response code " + response);
 
 					}
 
 					@Override
 					public void failed(Throwable throwable) {
-						System.out.println("Failed");
+						logger.info("Failed");
 						throwable.printStackTrace();
 					}
 				});
 
 		try {
-			System.out.println(futureResponse.get());
+			logger.info(futureResponse.get());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

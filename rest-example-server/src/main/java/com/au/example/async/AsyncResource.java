@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.CompletionCallback;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 
@@ -14,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Produces({ MediaType.APPLICATION_JSON })
 @Consumes({ MediaType.APPLICATION_JSON })
 public class AsyncResource {
+
 
 	@GET
 	@Path("test")
@@ -26,11 +28,24 @@ public class AsyncResource {
 	public void asyncGet(@Suspended final AsyncResponse asyncResponse) {
 
 		asyncResponse.setTimeout(1000, TimeUnit.MILLISECONDS);
+
+		// servis tamamlandıgında calısıyor
+		asyncResponse.register(new CompletionCallback() {
+
+			@Override
+			public void onComplete(Throwable throwable) {
+				// TODO Auto-generated method stub
+				System.out.println("asenkron servis tamamlandı");
+
+			}
+		});
+
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				System.out.println("Thread baslıyor");
 				String result = veryExpensiveOperation();
-				System.out.println("devam ediyor");
+				System.out.println("servis devem ediyor");
 				asyncResponse.resume(result);
 
 			}
@@ -46,7 +61,8 @@ public class AsyncResource {
 				return "test";
 			}
 		}).start();
-		System.out.println("denemememememememem");
+		System.out.println("servis bitti..");
 	}
+
 
 }
