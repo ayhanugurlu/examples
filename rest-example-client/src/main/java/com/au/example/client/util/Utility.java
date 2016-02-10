@@ -9,11 +9,31 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.plugins.providers.jackson.ResteasyJacksonProvider;
 
+import com.au.example.client.util.filter.DtoClientRequestFilter;
+import com.au.example.client.util.filter.DtoClientResponceFilter;
+import com.au.example.client.util.filter.ExceptionResponceFilter;
+
 public class Utility {
+	
+	
 
 	public static <T> T createClient(Class<T> t, String url) {
 		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(url);
+		DtoClientRequestFilter dtoClientRequestFilter = new DtoClientRequestFilter();
+		DtoClientResponceFilter dtoClientResponceFilter = new DtoClientResponceFilter();
+		client.register(dtoClientRequestFilter);
+		client.register(dtoClientResponceFilter);
+		ResteasyWebTarget target = client.target(url);		
+		return target.proxy(t);
+	}
+	
+	
+	
+	public static <T> T createClientExceptionFilter(Class<T> t, String url) {
+		ResteasyClient client = new ResteasyClientBuilder().build();
+		ExceptionResponceFilter exceptionResponceFilter = new ExceptionResponceFilter();		
+		client.register(exceptionResponceFilter);		
+		ResteasyWebTarget target = client.target(url);		
 		return target.proxy(t);
 	}
 

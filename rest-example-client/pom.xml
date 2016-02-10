@@ -60,7 +60,7 @@
 				</dependencies>
 				<executions>
 					<execution>
-						<id>generate-sources</id>
+						<id>generate-sources1</id>
 						<phase>generate-sources</phase>
 						<configuration>
 							<sourceRoot>${basedir}/src/main/generate-sources/</sourceRoot>
@@ -75,6 +75,24 @@
 							<goal>wadl2java</goal>
 						</goals>
 					</execution>
+					
+					<execution>
+						<id>generate-sources2</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>${basedir}/src/main/generate-sources/</sourceRoot>
+							<wadlOptions>
+								<wadlOption>
+									<wadl>${basedir}/../${project.server}/target/${project.server}/restException.wadl</wadl>
+									<interface>true</interface>
+								</wadlOption>
+							</wadlOptions>
+						</configuration>
+						<goals>
+							<goal>wadl2java</goal>
+						</goals>
+					</execution>
+					
 				</executions>
 			</plugin>
 		</plugins>

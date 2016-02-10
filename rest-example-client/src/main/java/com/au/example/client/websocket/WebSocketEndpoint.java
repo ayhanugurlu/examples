@@ -19,7 +19,11 @@ import javax.websocket.MessageHandler;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
-
+/**
+ * 
+ * @author ayhanu
+ *
+ */
 public class WebSocketEndpoint extends Endpoint {
 	
 	private static Logger logger = Logger.getLogger(WebSocketEndpoint.class.getName());

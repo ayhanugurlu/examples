@@ -18,7 +18,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.au.example.client.util.Utility;
+import com.au.example.exception.RestException;
 import com.au.example.inheritance.model.Animal;
+import com.au.example.inheritance.model.Dog;
 import com.au.example.inheritance.model.Zoo;
 import com.au.example.inheritance.services.RestInheritance;
 
@@ -29,11 +31,30 @@ public class RestClient {
 	private static final String SERVER_URL = "http://localhost:8080/rest-example-server/";
 
 	public static void main(String[] args) {
-		restInheritanceClientWadlToJava();
-		restInheritanceClientTypedWadlToJava();
-		restInheritanceClientApache();
-		restAsyncClient();
-		restAsyncClientInvocationCallback();
+		restExceptionClientWadlToJava();
+//		restInheritanceClientWadlToJava();
+//		restInheritanceClientTypedWadlToJava();
+//		restInheritanceClientApache();
+//		restAsyncClient();
+//		restAsyncClientInvocationCallback();
+
+	}
+	
+	
+	/**
+	 * 
+	 */
+	private static void restExceptionClientWadlToJava() {
+
+		RestException restInheritance = Utility.createClientExceptionFilter(RestException.class, SERVER_URL);
+		try {
+			restInheritance.testExp();	
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		
 
 	}
 
@@ -43,7 +64,7 @@ public class RestClient {
 	private static void restInheritanceClientWadlToJava() {
 
 		RestInheritance restInheritance = Utility.createClient(RestInheritance.class, SERVER_URL);
-		restInheritance.getDog();
+		Dog d = restInheritance.getDog();
 		Zoo zoo = restInheritance.getZoo();
 		logger.info("Response code " + zoo.toString());
 
