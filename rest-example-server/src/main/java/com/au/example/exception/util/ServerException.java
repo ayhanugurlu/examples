@@ -1,6 +1,8 @@
 package com.au.example.exception.util;
 
-public class ServerException extends Exception{
+import javax.ws.rs.WebApplicationException;
+
+public class ServerException extends WebApplicationException{
 
 	/**
 	 * 

@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientResponseContext;
@@ -17,25 +15,23 @@ import org.apache.commons.io.IOUtils;
 @Provider
 public class DtoClientResponceFilter implements ClientResponseFilter {
 
-	private static Logger log = Logger.getLogger(DtoClientResponceFilter.class.getName());
-
 	@Override
 	public void filter(ClientRequestContext requestContext, ClientResponseContext responseContext) throws IOException {
 		// TODO Auto-generated method stub
 		System.out.println("responce");
 		System.out.println("cookie");
-		for(String key : responseContext.getCookies().keySet()){
-			System.out.println("key "+key +" value "+responseContext.getCookies().get(key));
+		for (String key : responseContext.getCookies().keySet()) {
+			System.out.println("key " + key + " value " + responseContext.getCookies().get(key));
 		}
 		System.out.println("header");
-		for(String key : responseContext.getHeaders().keySet()){
-			System.out.println("key "+key +" value "+responseContext.getHeaders().get(key));
+		for (String key : responseContext.getHeaders().keySet()) {
+			System.out.println("key " + key + " value " + responseContext.getHeaders().get(key));
 		}
 		logResponse(responseContext);
 	}
 
 	private void logResponse(ClientResponseContext responseContext) throws IOException {
-		
+
 		String responseBody = null;
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		InputStream in = responseContext.getEntityStream();
@@ -45,8 +41,6 @@ public class DtoClientResponceFilter implements ClientResponseFilter {
 			out.write(content);
 			responseContext.setEntityStream(new ByteArrayInputStream(out.toByteArray()));
 			responseBody = new String(out.toByteArray());
-//			ObjectMapper mapper = new ObjectMapper();
-//			Object o =mapper.readValue(out.toByteArray(), Dog.class);
 			System.out.println(responseBody);
 		} catch (IOException ex) {
 			throw ex;
@@ -54,7 +48,7 @@ public class DtoClientResponceFilter implements ClientResponseFilter {
 
 		responseBody = (responseBody == null) ? "" : "\n" + responseBody;
 
-		log.log(Level.ALL, "\nClient Response:\nStatus: " + responseContext.getStatus() + responseBody);
+		System.out.println("\nClient Response:\nStatus: " + responseContext.getStatus() + responseBody);
 
 	}
 
