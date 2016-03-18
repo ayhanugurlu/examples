@@ -11,12 +11,10 @@
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect"
-				value="org.hibernate.spatial.dialect.h2geodb.GeoDBDialect" />
-			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
-			<property name="hibernate.validator.apply_to_ddl" value="false" />
+				value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="org.hibernate.envers.audit_strategy_validity_store_revend_timestamp" value="true"/>
+			
 			
 		</properties>
 

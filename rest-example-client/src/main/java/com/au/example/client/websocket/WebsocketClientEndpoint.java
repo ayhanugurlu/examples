@@ -60,7 +60,8 @@ public class WebsocketClientEndpoint {
 
 		try {
 			WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-			String uri = "ws://localhost:8080/rest-example-server/websocketServerEndpoint";
+			//String uri = "ws://localhost:8080/rest-example-server/websocketServerEndpoint";
+			String uri = "ws://localhost:9080/sgrs_sgi_server/ayss-eok-sgi-socket";
 			logger.info("Connecting to " + uri);
 			container.connectToServer(WebsocketClientEndpoint.class, URI.create(uri));
 			latch.await(100, TimeUnit.SECONDS);

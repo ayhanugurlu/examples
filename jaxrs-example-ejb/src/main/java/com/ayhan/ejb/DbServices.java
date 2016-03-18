@@ -19,4 +19,6 @@ public interface DbServices {
 	public void deletePerson(long id) ;
 	
 	public void updatePerson(long id,String name,String surname) ;
+	
+	public Integer createData(String value,String type) ;
 }

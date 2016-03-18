@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.ayhan.model.Data;
 import com.ayhan.model.Location;
 import com.ayhan.model.Person;
 
@@ -45,6 +46,15 @@ public class DbServicesImpl implements DbServices{
 	public void deletePerson(long id) {
 		Person p =  em.find(Person.class,id);
 		em.remove(p);		
+	}
+
+	public Integer createData(String value, String type) {
+		// TODO Auto-generated method stub
+		Data d = new Data();
+		d.setType(type);
+		d.setValue(value);
+		em.persist(d);
+		return d.getId();
 	}
 	
 

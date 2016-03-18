@@ -31,7 +31,8 @@ public class RestClient {
 	private static final String SERVER_URL = "http://localhost:8080/rest-example-server/";
 
 	public static void main(String[] args) {
-		restExceptionClientWadlToJava();
+//		restExceptionClientWadlToJava();
+		restAsyncClientTest();
 //		restInheritanceClientWadlToJava();
 //		restInheritanceClientTypedWadlToJava();
 //		restInheritanceClientApache();
@@ -118,6 +119,22 @@ public class RestClient {
 
 		Client client = ClientBuilder.newClient();
 		Future<Response> futureResponse = client.target(SERVER_URL + "asyncResource").path("asyncGet").request().async().get();
+		try {
+			String resp = futureResponse.get().readEntity(String.class);
+			logger.info("Response code " + resp);
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	
+	public static void restAsyncClientTest() {
+
+		Client client = ClientBuilder.newClient();
+		Future<Response> futureResponse = client.target("http://10.0.1.1:9080/sgrs_sgi_server/api/ayss-eok-sgi/").path("dayLightCamera/setZoomAsync/20").request().async().get();
 		try {
 			String resp = futureResponse.get().readEntity(String.class);
 			logger.info("Response code " + resp);

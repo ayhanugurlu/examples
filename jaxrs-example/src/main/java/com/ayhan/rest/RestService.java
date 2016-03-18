@@ -81,5 +81,15 @@ public class RestService {
 		result = "ok";
 		return result;
 	}
+	
+	
+	@GET
+	@Path("createData")
+	public String createData(@QueryParam("value")String value,@QueryParam("type") String type) {
+		
+		Integer id = dbServices.createData(value, type);
+		
+		return id.toString();
+	}
 
 }
