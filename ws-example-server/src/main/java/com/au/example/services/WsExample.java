@@ -5,8 +5,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-import com.au.example.data.Input;
-import com.au.example.data.Output;
+import com.au.example.dto.Input;
+import com.au.example.dto.Output;
 
 @Stateless
 @WebService

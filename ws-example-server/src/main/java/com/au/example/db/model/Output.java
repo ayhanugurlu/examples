@@ -1,6 +1,8 @@
-package com.au.example.data;
+package com.au.example.db.model;
 
 public class Output {
+
+
 
 	private String out1;
 
@@ -42,4 +44,6 @@ public class Output {
 		this.out4 = out4;
 	}
 
+
+	
 }

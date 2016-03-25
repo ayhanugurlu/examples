@@ -1,8 +1,13 @@
 package com.au.example.db.model.user;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
 
 import com.au.example.db.model.BaseModel;
@@ -13,12 +18,23 @@ import com.au.example.db.model.BaseModel;
 @Table(name = "User")
 public class User extends BaseModel<Long> {
 	
+	@Id
+	@GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
+			@org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
+			@org.hibernate.annotations.Parameter(name = "allocationSize", value = "1"), })
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	private Integer id;
+	
+	@Column(name = "username")
 	private String username;
 	
+	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "surname")
 	private String surname;
 	
+	@Column(name = "email")
 	private String email;
 
 	public String getUsername() {

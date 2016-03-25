@@ -13,7 +13,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	UserDao userDao;
 	
 	public void createUser(User user){
-		userDao.createUser(user);
+		userDao.create(user);
 	}
 
 }

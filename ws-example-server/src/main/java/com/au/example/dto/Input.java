@@ -1,4 +1,4 @@
-package com.au.example.data;
+package com.au.example.dto;
 
 public class Input {
 	

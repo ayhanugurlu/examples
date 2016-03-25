@@ -1,35 +1,47 @@
 package com.au.example.db.dao;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 
-public abstract class AbstractDao<T, PK> implements BaseDao<T, PK> {
+public abstract class AbstractDao<T, PK extends Serializable> implements BaseDao<T, PK> {
 
-	private final Class<T> entityClass;
+	protected Class<T> entityClass;
 
-	@PersistenceUnit
-	private EntityManagerFactory entityManagerFactory;
+	@PersistenceContext(name="MyAppUnit")
+	protected EntityManager entityManager;
+	
 
-	@SuppressWarnings("unchecked")
 	public AbstractDao() {
-		entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 	}
 
-	public T findById(PK pk) {
+	
 
-		EntityManager em = entityManagerFactory.createEntityManager();
-		return em.find(entityClass, pk);
-
+	@Override
+	public T create(T t) {
+		this.entityManager.persist(t);
+		return t;
 	}
 
-	public void createUser(T entity) {
-
-		EntityManager em = entityManagerFactory.createEntityManager();
-		em.persist(entity);
-
+	@Override
+	public T read(PK id) {
+		return this.entityManager.find(entityClass, id);
 	}
 
+	@Override
+	public T update(T t) {
+		return this.entityManager.merge(t);
+	}
+
+	@Override
+	public void delete(T t) {
+		t = this.entityManager.merge(t);
+		this.entityManager.remove(t);
+	}
+
+	
 }
