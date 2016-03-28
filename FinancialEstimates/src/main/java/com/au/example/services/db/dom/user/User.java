@@ -1,4 +1,4 @@
-package com.au.example.db.model.user;
+package com.au.example.services.db.dom.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
 
-import com.au.example.db.model.BaseModel;
+import com.au.example.services.db.dom.BaseModel;
 
 
 @Audited

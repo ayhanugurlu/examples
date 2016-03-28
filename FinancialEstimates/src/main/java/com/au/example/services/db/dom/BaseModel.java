@@ -1,4 +1,4 @@
-package com.au.example.db.model;
+package com.au.example.services.db.dom;
 
 public class BaseModel<T> {
 	

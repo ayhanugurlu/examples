@@ -1,4 +1,4 @@
-package com.au.example.db.dao;
+package com.au.example.services.db.dao;
 
 import java.io.Serializable;
 
