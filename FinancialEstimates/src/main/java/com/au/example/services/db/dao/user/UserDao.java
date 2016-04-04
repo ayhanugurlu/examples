@@ -5,6 +5,6 @@ import com.au.example.services.db.dom.user.User;
 
 public interface UserDao extends BaseDao<User, Long> {
 	
-	User 
+	User findByUsername(String username); 
 
 }

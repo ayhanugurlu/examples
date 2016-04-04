@@ -27,6 +27,7 @@ public class AuthController {
 	}
 	@RequestMapping(path = "/users/{username}", method = RequestMethod.GET)
 	public User users(@PathVariable String username) {
+		System.out.println("ayhana");
 		return null;
 	}
 	

@@ -25,7 +25,7 @@
                     .then(function (user) {
                         if (user !== null && user.password === password) {
                             response = { success: true };
-                        } else {
+                        } else {                        	
                             response = { success: false, message: 'Username or password is incorrect' };
                         }
                         callback(response);

@@ -34,6 +34,7 @@
         }
 
         function GetByUsername(username) {
+        	console.log('asdyhasdnhasdn ');
             var deferred = $q.defer();
             var filtered = $filter('filter')(getUsers(), { username: username });
             var user = filtered.length ? filtered[0] : null;

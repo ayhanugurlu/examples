@@ -19,7 +19,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	@Override
 	public User findUser(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.findByUsername(username);
 	}
 
 }
