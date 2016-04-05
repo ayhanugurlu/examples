@@ -4,52 +4,63 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.au.example.db.DbOperation;
 import com.au.example.db.common.ConnectionProperties;
-import com.au.example.db.common.dialect.Dialect;
-import com.au.example.db.common.dialect.Driver;
-import com.au.example.db.common.dialect.Mode;
-import com.au.example.db.entity.Data;
-import com.au.example.db.entity.DataDetial;
 
 public class MainClass {
 
 	ConnectionProperties prob;
 
 	public static void main(String[] args) {
-
-		MainClass m = new MainClass();
-		m.prob = new ConnectionProperties(Driver.H2, "jdbc:h2:tcp://10.0.1.1/~/DevelopmentEnvironment/h2gis-standalone/data/test", "sa", "",
-				Dialect.H2, Mode.UPDATE, null);
-		m.saveData();
-		while(true){
+		DbOperation dbOperation = new DbOperation();
+		System.out.println("1 : Create Dummy Data");
+		System.out.println("2 : Create Dummy Data , DataDetial and DataOtherDetial");
+		System.out.println("3 : Delete Data with use id.");
+		System.out.println("4 : Delete DataDetial with use id");
+		System.out.println("5 : Delete DataOtherDetial with use id");
+		while (true) {
 			try {
 				BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 				String s = bufferRead.readLine();
-				if(s.equals("exit")){
+				if (s.equals("exit")) {
 					break;
 				}
-				
+
+				switch (s) {
+				case "1":
+					dbOperation.createData();
+					break;
+				case "2":
+					dbOperation.createDataWithDetialAndOtherDetial();
+					break;
+				case "3":
+					System.out.println("Please enter data id :");
+					bufferRead = new BufferedReader(new InputStreamReader(System.in));
+					s = bufferRead.readLine();
+					dbOperation.deleteData(Integer.parseInt(s));
+					break;
+				case "4":
+					System.out.println("Please enter datadetial id :");
+					bufferRead = new BufferedReader(new InputStreamReader(System.in));
+					s = bufferRead.readLine();
+					dbOperation.deleteDetialData(Integer.parseInt(s));
+					break;
+				case "5":
+					System.out.println("Please enter dataotherdetial id :");
+					bufferRead = new BufferedReader(new InputStreamReader(System.in));
+					s = bufferRead.readLine();
+					dbOperation.deleteOtherDetialData(Integer.parseInt(s));
+					break;
 				
 
-				System.out.println(s);
+				}
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	
+
 		}
-		
-	}
-	
-	
-	private void saveData(){
-		Data d = new Data();
-		d.setType("a");
-		d.setValue("12");
-		DataDetial dd = new DataDetial();
-		dd.setType("111");
-		dd.setValue("asdasdsa");
-		d.setDataDetial(dd);
-		prob.getConnection().persist(d);
+
 	}
 
 }

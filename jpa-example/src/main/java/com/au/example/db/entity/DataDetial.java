@@ -1,12 +1,12 @@
 package com.au.example.db.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,11 +18,6 @@ import org.hibernate.envers.Audited;
 @Table(name = "Data_Detial")
 public class DataDetial {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GenericGenerator(name = "sequencedetial", strategy = "sequence", parameters = {
 			@org.hibernate.annotations.Parameter(name = "sequenceNameDetial", value = "sequencedetial"),
@@ -33,13 +28,9 @@ public class DataDetial {
 	@Column(name = "value")
 	private String value;
 	
-	@ManyToOne
-    @JoinColumn(name="DATA_ID", nullable=false)
+	@OneToOne(cascade={CascadeType.ALL})
+    @JoinColumn(name="DATA")
 	private Data data;
-	
-	@OneToOne
-    @JoinColumn(name="DATA_ONE_ID", nullable=false)
-	private Data dataOne;
 
 	@Column(name = "type")
 	private String type;
@@ -74,14 +65,6 @@ public class DataDetial {
 
 	public void setData(Data data) {
 		this.data = data;
-	}
-
-	public Data getDataOne() {
-		return dataOne;
-	}
-
-	public void setDataOne(Data dataOne) {
-		this.dataOne = dataOne;
 	}
 
 

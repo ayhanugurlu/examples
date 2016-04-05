@@ -1,7 +1,5 @@
 package com.au.example.db.entity;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +7,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,10 +18,7 @@ import org.hibernate.envers.Audited;
 @Table(name = "Data")
 public class Data {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
 
 	@Id
 	@GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
@@ -33,11 +27,11 @@ public class Data {
 	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
-	@OneToMany(mappedBy = "data", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private Set<DataDetial> detialSet;
-
-	@OneToOne(mappedBy = "dataOne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToOne(mappedBy = "data", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private DataDetial dataDetial;
+	
+	@OneToOne(mappedBy = "data", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private DataOtherDetial dataOtherDetial;
 
 	@Column(name = "value")
 	private String value;
@@ -69,13 +63,7 @@ public class Data {
 		this.type = type;
 	}
 
-	public Set<DataDetial> getDetialSet() {
-		return detialSet;
-	}
 
-	public void setDetialSet(Set<DataDetial> detialSet) {
-		this.detialSet = detialSet;
-	}
 
 	public DataDetial getDataDetial() {
 		return dataDetial;
@@ -84,5 +72,15 @@ public class Data {
 	public void setDataDetial(DataDetial dataDetial) {
 		this.dataDetial = dataDetial;
 	}
+
+	public DataOtherDetial getDataOtherDetial() {
+		return dataOtherDetial;
+	}
+
+	public void setDataOtherDetial(DataOtherDetial dataOtherDetial) {
+		this.dataOtherDetial = dataOtherDetial;
+	}
+	
+	
 
 }
