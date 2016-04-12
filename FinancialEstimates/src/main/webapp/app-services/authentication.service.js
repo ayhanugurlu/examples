@@ -19,11 +19,26 @@
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
              ----------------------------------------------*/
-            $timeout(function () {
+//            $timeout(function () {
+//                var response;
+//                UserService.GetByUsername(username)
+//                    .then(function (user) {
+//                        if (user !== null && user.password === password) {
+//                            response = { success: true };
+//                        } else {                        	
+//                            response = { success: false, message: 'Username or password is incorrect' };
+//                        }
+//                        callback(response);
+//                    });
+//            }, 1000);
+        	
+        	
+        	$timeout(function () {
                 var response;
-                UserService.GetByUsername(username)
+                UserService.Login(username,password)
                     .then(function (user) {
-                        if (user !== null && user.password === password) {
+                    	
+                        if (user !== null && user === 'succes') {
                             response = { success: true };
                         } else {                        	
                             response = { success: false, message: 'Username or password is incorrect' };

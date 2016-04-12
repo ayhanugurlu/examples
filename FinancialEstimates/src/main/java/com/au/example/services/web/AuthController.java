@@ -31,5 +31,12 @@ public class AuthController {
 		return null;
 	}
 	
+	
+	@RequestMapping(path = "/users/login/{username}/{password}", method = RequestMethod.GET)
+	public String login(@PathVariable String username,@PathVariable String password) {
+		System.out.println("ayhana");
+		return "succes";
+	}
+	
 
 }
