@@ -252,5 +252,6 @@ public class RestInheritance {
 		zoo.setWhales(whales);
 		return zoo;
 	}
+	
 
 }
