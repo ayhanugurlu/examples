@@ -1,5 +1,7 @@
 package com.au.example.db.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import com.au.example.db.model.User;
@@ -12,4 +14,6 @@ public interface UserDao {
 	void update(User user);
 
 	User findById(Long id);
+	
+	List<User> getAll();
 }

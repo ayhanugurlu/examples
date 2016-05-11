@@ -112,7 +112,12 @@ public class User {
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String userString = "Id "+id +",Name " +name+" ,Surname "+surname;
+		return userString;
+	}
 	
 	
 	
