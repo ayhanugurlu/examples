@@ -3,7 +3,6 @@ package com.au.example.interceptor;
 import java.io.IOException;
 
 import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
