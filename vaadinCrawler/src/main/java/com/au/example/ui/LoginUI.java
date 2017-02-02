@@ -1,5 +1,8 @@
 package com.au.example.ui;
 
+import com.au.example.repo.UserRepository;
+import com.au.example.view.SimpleCreateUserView;
+import com.vaadin.spring.server.SpringVaadinServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.au.example.repo.UrlHtmlTagRepository;
@@ -13,13 +16,21 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.UI;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @SpringUI(path = "loginUI")
 @Theme("valo")
 public class LoginUI extends UI {
 	
 	@Autowired
 	UrlHtmlTagRepository repo;
-	
+
+	@Autowired
+	UserRepository userRepo;
 	
 	@Autowired
 	UrlHtmlTagEditor editor;
@@ -51,6 +62,12 @@ public class LoginUI extends UI {
 		//
 		getNavigator().addView(UrlHtmlTagView.NAME, UrlHtmlTagView.class);
 
+
+		//
+		// Add the main view of the application
+		//
+		getNavigator().addView(SimpleCreateUserView.NAME, SimpleCreateUserView.class);
+
 		//
 		// We use a view change handler to ensure the user is always redirected
 		// to the login view if the user is not logged in.
@@ -62,8 +79,15 @@ public class LoginUI extends UI {
 
 				// Check if a user has logged in
 				boolean isLoggedIn = getSession().getAttribute("user") != null;
-				boolean isLoginView = event.getNewView() instanceof SimpleLoginView;
+				boolean isLoginView = event.getNewView() instanceof SimpleLoginView ||  event.getNewView() instanceof SimpleCreateUserView;
+				boolean isCreateView = event.getNewView() instanceof SimpleCreateUserView;
 
+				if(isCreateView){
+					getNavigator().navigateTo(SimpleLoginView.NAME);
+					SimpleCreateUserView simpleCreateUserView = (com.au.example.view.SimpleCreateUserView) event.getNewView();
+					simpleCreateUserView.init(userRepo);
+					return true;
+				}
 				if (!isLoggedIn && !isLoginView) {
 					// Redirect to login view always if a user has not yet
 					// logged in
@@ -77,7 +101,12 @@ public class LoginUI extends UI {
 				}
 				if(event.getViewName().equals(UrlHtmlTagView.NAME)){
 					UrlHtmlTagView urlHtmlTagView = (com.au.example.view.UrlHtmlTagView) event.getNewView();
-					urlHtmlTagView.init(repo, editor,iCrawler);
+					urlHtmlTagView.init(repo, editor);
+				}
+
+				if(event.getViewName().equals(SimpleLoginView.NAME)){
+					SimpleLoginView simpleLoginView = (com.au.example.view.SimpleLoginView) event.getNewView();
+					simpleLoginView.init(userRepo);
 				}
 
 				return true;

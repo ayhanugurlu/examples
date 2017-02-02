@@ -15,13 +15,24 @@ public class UrlHtmlTag {
 
 	private String htmlTag;
 
+	private String htmlTagAttribute;
+
 	public UrlHtmlTag() {
 	}
 
-	public UrlHtmlTag(String url, String htmlTag) {
+	public UrlHtmlTag(String url, String htmlTag,String htmlTagAttribute) {
 		this.url = url;
 		this.htmlTag = htmlTag;
+		this.htmlTagAttribute = htmlTagAttribute;
 
+	}
+
+	public String getHtmlTagAttribute() {
+		return htmlTagAttribute;
+	}
+
+	public void setHtmlTagAttribute(String htmlTagAttribute) {
+		this.htmlTagAttribute = htmlTagAttribute;
 	}
 
 	public Long getId() {
@@ -43,5 +54,7 @@ public class UrlHtmlTag {
 	public void setHtmlTag(String htmlTag) {
 		this.htmlTag = htmlTag;
 	}
+
+
 
 }

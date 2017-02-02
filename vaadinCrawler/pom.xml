@@ -36,6 +36,11 @@
 			<artifactId>vaadin-spring-boot-starter</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>de.steinwedel.vaadin.addon</groupId>
+			<artifactId>messagebox</artifactId>
+			<version>3.0.19</version>
+		</dependency>
 
 
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
@@ -74,6 +79,14 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+<repositories>
+	<repository>
+		<id>vaadin-addons</id>
+		<url>http://maven.vaadin.com/vaadin-addons</url>
+	</repository>
+</repositories>
+
 
 
 </project>

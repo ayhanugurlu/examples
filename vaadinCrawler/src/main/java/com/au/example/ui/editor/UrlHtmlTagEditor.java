@@ -1,5 +1,8 @@
 package com.au.example.ui.editor;
 
+import com.au.example.service.ICrawler;
+import com.vaadin.ui.*;
+import de.steinwedel.messagebox.MessageBox;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.au.example.model.UrlHtmlTag;
@@ -9,11 +12,10 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @SpringComponent
 @VaadinSessionScope
@@ -26,6 +28,8 @@ public class UrlHtmlTagEditor extends  VerticalLayout {
 
 	private final UrlHtmlTagRepository repository;
 
+	private final ICrawler crawler;
+
 	/**
 	 * The currently edited urlHtmlTag
 	 */
@@ -34,18 +38,22 @@ public class UrlHtmlTagEditor extends  VerticalLayout {
 	/* Fields to edit properties in UrlHtmlTag entity */
 	TextField url = new TextField("Crawl Url");
 	TextField htmlTag = new TextField("Html Tag");
+	TextField htmlTagAttribute = new TextField("Html Tag Attiribute");
+
 
 	/* Action buttons */
 	Button save = new Button("Save", FontAwesome.SAVE);
 	Button cancel = new Button("Cancel");
 	Button delete = new Button("Delete", FontAwesome.TRASH_O);
-	CssLayout actions = new CssLayout(save, cancel, delete);
+	Button startCrawler = new Button("Start Crawler");
+	CssLayout actions = new CssLayout(save, cancel, delete,startCrawler);
 
 	@Autowired
-	public UrlHtmlTagEditor(UrlHtmlTagRepository repository) {
+	public UrlHtmlTagEditor(UrlHtmlTagRepository repository, ICrawler crawler) {
 		this.repository = repository;
-
-		addComponents(url, htmlTag, actions);
+		this.crawler = crawler;
+		setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+		addComponents(url, htmlTag,htmlTagAttribute, actions);
 
 		// Configure and style components
 		setSpacing(true);
@@ -57,6 +65,31 @@ public class UrlHtmlTagEditor extends  VerticalLayout {
 		save.addClickListener(e -> repository.save(urlHtmlTag));
 		delete.addClickListener(e -> repository.delete(urlHtmlTag));
 		cancel.addClickListener(e -> editUrlHtmlTag(urlHtmlTag));
+		startCrawler.addClickListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(Button.ClickEvent clickEvent) {
+				Future<String>  result = crawler.scan(urlHtmlTag.getUrl(),urlHtmlTag.getHtmlTag(),urlHtmlTag.getHtmlTagAttribute());
+				startCrawler.setEnabled(false);
+				if(result.isDone()){
+					startCrawler.setEnabled(true);
+					String resultString ="";
+					try {
+						resultString = result.get();
+					} catch (InterruptedException e) {
+						resultString = "Crawler didn't run...";
+					} catch (ExecutionException e) {
+						resultString = "Crawler didn't run...";
+					}
+					MessageBox.create()
+							.withCaption("Crawle Result")
+							.withMessage(resultString)
+							.open();
+				}
+
+
+
+			}
+		});
 		setVisible(false);
 	}
 

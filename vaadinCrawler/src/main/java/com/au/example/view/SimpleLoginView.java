@@ -1,5 +1,9 @@
 package com.au.example.view;
 
+import com.au.example.model.User;
+import com.au.example.repo.UserRepository;
+import com.au.example.ui.validator.PasswordValidator;
+import com.au.example.ui.validator.UsernameValidator;
 import com.vaadin.data.validator.AbstractValidator;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.navigator.View;
@@ -13,8 +17,13 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
+import de.steinwedel.messagebox.MessageBox;
 
-public class SimpleLoginView extends CustomComponent implements View, Button.ClickListener {
+import java.util.List;
+
+
+
+public class SimpleLoginView extends CustomComponent implements View{
 
 	public static final String NAME = "login";
 
@@ -24,6 +33,11 @@ public class SimpleLoginView extends CustomComponent implements View, Button.Cli
 
 	private final Button loginButton;
 
+	private final Button createUserButton;
+
+	private UserRepository userRepository;
+
+
 	public SimpleLoginView() {
 		setSizeFull();
 
@@ -32,7 +46,7 @@ public class SimpleLoginView extends CustomComponent implements View, Button.Cli
 		user.setWidth("300px");
 		user.setRequired(true);
 		user.setInputPrompt("Your username (eg. joe@email.com)");
-		user.addValidator(new EmailValidator("Username must be an email address"));
+		user.addValidator(new UsernameValidator());
 		user.setInvalidAllowed(false);
 
 		// Create the password input field
@@ -44,11 +58,49 @@ public class SimpleLoginView extends CustomComponent implements View, Button.Cli
 		password.setNullRepresentation("");
 
 		// Create login button
-		loginButton = new Button("Login", this);
+		loginButton = new Button("Login");
+		loginButton.addClickListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent clickEvent) {
+
+					if (!SimpleLoginView.this.user.isValid() || !SimpleLoginView.this.password.isValid()) {
+						return;
+					}
+
+					String username = SimpleLoginView.this.user.getValue();
+					String password = SimpleLoginView.this.password.getValue();
+
+					List<User> users = userRepository.findByEmailStartsWithIgnoreCase(username);
+
+					boolean isValid = users != null && users.size()>0&&password.equals(users.get(0).getPassword());
+
+					if (isValid) {
+
+						// Store the current user in the service session
+						getSession().setAttribute("user", username);
+
+						// Navigate to main view
+						getUI().getNavigator().navigateTo(UrlHtmlTagView.NAME);
+
+					} else {
+
+						// Wrong password clear the password field and refocuses it
+						SimpleLoginView.this.password.setValue(null);
+						SimpleLoginView.this.password.focus();
+
+					}
+
+				}
+
+		});
+		createUserButton = new Button("Create User", clickEvent -> {
+
+			getUI().getNavigator().navigateTo(SimpleCreateUserView.NAME);
+		});
 
 		// Add both to a panel
-		VerticalLayout fields = new VerticalLayout(user, password, loginButton);
-		fields.setCaption("Please login to access the application. (test@test.com/passw0rd)");
+		VerticalLayout fields = new VerticalLayout(user, password, loginButton,createUserButton);
+		fields.setCaption("Please login to access the application.");
 		fields.setSpacing(true);
 		fields.setMargin(new MarginInfo(true, true, true, false));
 		fields.setSizeUndefined();
@@ -61,72 +113,20 @@ public class SimpleLoginView extends CustomComponent implements View, Button.Cli
 		setCompositionRoot(viewLayout);
 	}
 
+	public void init(UserRepository userRepository){
+		this.userRepository = userRepository;
+
+	}
+
 	@Override
 	public void enter(ViewChangeEvent event) {
 		// focus the username field when user arrives to the login view
 		user.focus();
 	}
 
-	// Validator for validating the passwords
-	private static final class PasswordValidator extends AbstractValidator<String> {
 
-		public PasswordValidator() {
-			super("The password provided is not valid");
-		}
 
-		@Override
-		protected boolean isValidValue(String value) {
-			//
-			// Password must be at least 8 characters long and contain at least
-			// one number
-			//
-			if (value != null && (value.length() < 8 || !value.matches(".*\\d.*"))) {
-				return false;
-			}
-			return true;
-		}
 
-		@Override
-		public Class<String> getType() {
-			return String.class;
-		}
-	}
 
-	@Override
-	public void buttonClick(ClickEvent event) {
 
-		//
-		// Validate the fields using the navigator. By using validors for the
-		// fields we reduce the amount of queries we have to use to the database
-		// for wrongly entered passwords
-		//
-		if (!user.isValid() || !password.isValid()) {
-			return;
-		}
-
-		String username = user.getValue();
-		String password = this.password.getValue();
-
-		//
-		// Validate username and password with database here. For examples sake
-		// I use a dummy username and password.
-		//
-		boolean isValid = username.equals("test@test.com") && password.equals("passw0rd");
-
-		if (isValid) {
-
-			// Store the current user in the service session
-			getSession().setAttribute("user", username);
-
-			// Navigate to main view
-			getUI().getNavigator().navigateTo(UrlHtmlTagView.NAME);//
-
-		} else {
-
-			// Wrong password clear the password field and refocuses it
-			this.password.setValue(null);
-			this.password.focus();
-
-		}
-	}
 }

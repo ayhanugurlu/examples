@@ -2,6 +2,8 @@ package com.au.example.view;
 
 import java.util.List;
 
+import com.vaadin.ui.*;
+import com.vaadin.ui.themes.Reindeer;
 import org.springframework.util.StringUtils;
 
 import com.au.example.model.UrlHtmlTag;
@@ -12,13 +14,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 
 public class UrlHtmlTagView extends CustomComponent implements View, Button.ClickListener {
 
@@ -33,7 +29,7 @@ public class UrlHtmlTagView extends CustomComponent implements View, Button.Clic
 
 	private UrlHtmlTagEditor editor;
 
-	private ICrawler crawler;
+
 
 	final Grid grid;
 
@@ -41,7 +37,7 @@ public class UrlHtmlTagView extends CustomComponent implements View, Button.Clic
 
 	final Button logout;
 
-	final Button startCrawler;
+
 
 	private final Button addNewBtn;
 
@@ -62,27 +58,23 @@ public class UrlHtmlTagView extends CustomComponent implements View, Button.Clic
 				getUI().getNavigator().navigateTo(NAME);
 			}
 		});
-		startCrawler = new Button("Start Crawler", new Button.ClickListener() {
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				List<UrlHtmlTag> htmlTags = repo.findAll();
-				for (UrlHtmlTag tag : htmlTags) {
-					crawler.scan(tag.getUrl());
-				}
-
-			}
-		});
 	}
 
-	public void init(UrlHtmlTagRepository repo, UrlHtmlTagEditor editor, ICrawler iCrawler) {
+	public void init(UrlHtmlTagRepository repo, UrlHtmlTagEditor editor) {
 		setSizeFull();
 		this.repo = repo;
 		this.editor = editor;
-		this.crawler = iCrawler;
+
 		// build layout
-		HorizontalLayout actions = new HorizontalLayout(filter, addNewBtn, startCrawler);
-		VerticalLayout mainLayout = new VerticalLayout(logout, actions, grid, editor);
+		HorizontalLayout actions = new HorizontalLayout(logout,filter, addNewBtn);
+		VerticalLayout mainLayout = new VerticalLayout( actions, grid, editor);
+
+		mainLayout.setComponentAlignment(actions, Alignment.MIDDLE_CENTER);
+		mainLayout.setComponentAlignment(grid, Alignment.MIDDLE_CENTER);
+		mainLayout.setComponentAlignment(editor, Alignment.MIDDLE_CENTER);
+
+
 		setCompositionRoot(mainLayout);
 
 		// Configure layouts and components
@@ -90,8 +82,8 @@ public class UrlHtmlTagView extends CustomComponent implements View, Button.Clic
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 
-		grid.setHeight(300, Unit.PIXELS);
-		grid.setColumns("id", "url", "htmlTag");
+		grid.setHeight(500, Unit.PIXELS);
+		grid.setColumns("id", "url", "htmlTag","htmlTagAttribute");
 
 		filter.setInputPrompt("Filter by url");
 
@@ -110,7 +102,7 @@ public class UrlHtmlTagView extends CustomComponent implements View, Button.Clic
 		});
 
 		// Instantiate and edit new Customer the new button is clicked
-		addNewBtn.addClickListener(e -> editor.editUrlHtmlTag(new UrlHtmlTag("", "")));
+		addNewBtn.addClickListener(e -> editor.editUrlHtmlTag(new UrlHtmlTag("", "","")));
 
 		// Listen changes made by the editor, refresh data from backend
 		editor.setChangeHandler(() -> {

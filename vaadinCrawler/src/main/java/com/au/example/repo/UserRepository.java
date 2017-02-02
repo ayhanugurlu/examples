@@ -9,4 +9,6 @@ import com.au.example.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	List<User> findByLastNameStartsWithIgnoreCase(String lastName);
+
+	List<User> findByEmailStartsWithIgnoreCase(String email);
 }
