@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-express-web",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "ayhanugurlu <ayhanugurlu@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ayhanugurlu/examples",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  }
+}
